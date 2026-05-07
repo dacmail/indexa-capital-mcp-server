@@ -2,16 +2,39 @@
   "name": "indexa-capital-mcp-server",
   "version": "0.1.0",
   "description": "Read-only MCP server for the Indexa Capital REST API",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "indexa",
+    "indexa-capital",
+    "claude"
+  ],
+  "license": "MIT",
+  "author": "dacmail",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dacmail/indexa-capital-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dacmail/indexa-capital-mcp-server/issues"
+  },
+  "homepage": "https://github.com/dacmail/indexa-capital-mcp-server#readme",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
     "indexa-capital-mcp-server": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
     "build": "tsc && chmod +x dist/index.js",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run build"
   },
   "engines": {
     "node": ">=18"

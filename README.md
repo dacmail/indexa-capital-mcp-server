@@ -24,8 +24,26 @@ Implementa el subconjunto de lectura de la [API REST v1.6 de Indexa](https://ind
 
 ## Instalación
 
+### Desde npm (usuarios)
+
+No hace falta clonar ni compilar: el paquete incluye el código ya construido en `dist/`.
+
+Instalación global (el binario queda en tu PATH de npm):
+
 ```bash
-git clone <repo>
+npm install -g indexa-capital-mcp-server
+```
+
+O ejecutarlo sin instalar globalmente (`npx` descarga el paquete cuando hace falta; `-y` evita el prompt de confirmación):
+
+```bash
+npx -y indexa-capital-mcp-server
+```
+
+### Desde el repositorio (desarrollo)
+
+```bash
+git clone https://github.com/dacmail/indexa-capital-mcp-server.git
 cd indexa-capital-mcp-server
 npm install
 npm run build
@@ -40,7 +58,41 @@ npm run build
 
 ## Configuración en Claude Desktop
 
-Edita `~/Library/Application Support/Claude/claude_desktop_config.json` y añade:
+Edita `~/Library/Application Support/Claude/claude_desktop_config.json` y añade una de estas opciones.
+
+**Con `npx` (recomendado; no necesitas ruta al clon ni al global `node_modules`):**
+
+```json
+{
+  "mcpServers": {
+    "indexa-capital": {
+      "command": "npx",
+      "args": ["-y", "indexa-capital-mcp-server"],
+      "env": {
+        "INDEXA_API_TOKEN": "eyJ0eXAiOiJKV1Qi..."
+      }
+    }
+  }
+}
+```
+
+**Si instalaste el paquete con `npm install -g`:**
+
+```json
+{
+  "mcpServers": {
+    "indexa-capital": {
+      "command": "indexa-capital-mcp-server",
+      "args": [],
+      "env": {
+        "INDEXA_API_TOKEN": "eyJ0eXAiOiJKV1Qi..."
+      }
+    }
+  }
+}
+```
+
+**Si trabajas desde un clon local** (tras `npm run build`):
 
 ```json
 {
@@ -59,6 +111,24 @@ Edita `~/Library/Application Support/Claude/claude_desktop_config.json` y añade
 Reinicia Claude Desktop. Verás las 7 tools disponibles bajo el icono del enchufe.
 
 ## Configuración en Claude Code
+
+Con paquete publicado en npm (`npx`):
+
+```bash
+claude mcp add indexa-capital \
+  --env INDEXA_API_TOKEN=eyJ0eXAiOiJKV1Qi... \
+  -- npx -y indexa-capital-mcp-server
+```
+
+Con instalación global:
+
+```bash
+claude mcp add indexa-capital \
+  --env INDEXA_API_TOKEN=eyJ0eXAiOiJKV1Qi... \
+  -- indexa-capital-mcp-server
+```
+
+Desde un clon local:
 
 ```bash
 claude mcp add indexa-capital \
